@@ -120,6 +120,7 @@
               <option value="rodrigues">Rodrigues</option>
               <option value="agalega">Agaléga</option>
               <option value="chagos">Chagos</option>
+              <option value="diaspora">Diaspora</option>
             </select>
           </div>
           <div class="space-y-4">
@@ -470,19 +471,21 @@
       const updatedLineHeight = titleSize * 1.05;
       const titleBlockHeight = subtitleSizeAdj + spacingBetween + lines.length * updatedLineHeight;
 
+      const TOP_MARGIN = 240;
+      const BOTTOM_MARGIN = 160;
       const placementMap = {
-        1: { x: 100, align: 'left', y: 180 },
-        3: { x: 100, align: 'left', y: 0 },
-        5: { x: canvas.width / 2, align: 'center', y: 180 },
-        6: { x: canvas.width / 2, align: 'center', y: 0 }
+        1: { x: 100, align: 'left', y: TOP_MARGIN },   // Top Left
+        3: { x: 100, align: 'left', y: 0 },     // Bottom Left (y calculated dynamically)
+        5: { x: canvas.width / 2, align: 'center', y: TOP_MARGIN }, // Top Center
+        6: { x: canvas.width / 2, align: 'center', y: 0 }     // Bottom Center (y calculated dynamically)
       };
 
       let posX = placementMap?.[placement]?.x ?? 100;
       let align = placementMap?.[placement]?.align ?? 'left';
-      let posY = placementMap?.[placement]?.y ?? 180;
+      let posY = placementMap?.[placement]?.y ?? TOP_MARGIN;
 
       if (placement === 3 || placement === 6) {
-        posY = logoY - 100 - titleBlockHeight;
+        posY = logoY - BOTTOM_MARGIN - titleBlockHeight;
       }
 
       if (uploadedImage && (titleRaw || subtitle)) {
